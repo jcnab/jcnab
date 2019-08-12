@@ -1,0 +1,41 @@
+{
+  "description": "A simple bundle",
+  "definitions": {
+    "param_type": {
+      "type": "string",
+      "default": "default parameter value"
+    },
+    "file_type": {
+      "type": "string"
+    }
+  },
+  "invocationImages": [
+    {
+      "image": "sirot/jcnab-invoc:0.1.0",
+      "imageType": "docker"
+    }
+  ],
+  "maintainers": [
+    {
+      "email": "jean-christophe.sirot@docker.com",
+      "name": "JC Sirot"
+    }
+  ],
+  "name": "simple",
+  "parameters": {
+    "param": {
+      "definition": "param_type",
+      "destination": {
+        "env": "ENV_PARAMETER"
+      }
+    },
+    "file": {
+      "definition": "file_type",
+      "destination": {
+        "path": "/etc/cnab/parameters/param"
+      }
+    }
+  },
+  "schemaVersion": "v1.0.0",
+  "version": "0.1.0"
+}

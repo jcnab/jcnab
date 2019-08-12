@@ -1,0 +1,4 @@
+Install action
+env parameter=some custom value
+file parameter=
+Action install complete for my-claim

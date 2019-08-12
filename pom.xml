@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.chelonix.jcnab</groupId>
+  <artifactId>cnab-parent</artifactId>
+  <version>0.9-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>jCNAB Maven Parent</name>
+  <description>Parent for jcnab artifacts</description>
+  <url>https://github.com/jcnab/jcnab</url>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/jcnab/jcnab/issues</url>
+  </issueManagement>
+  <inceptionYear>2019</inceptionYear>
+  <licenses>
+    <license>
+      <name>GPL-v3.0</name>
+      <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:https://github.com/jcnab/jcnab.git</connection>
+    <developerConnection>scm:git:git@github.com:jcnab/jcnab.git</developerConnection>
+    <url>https://github.com/jcnab/jcnab</url>
+  </scm>
+  <developers>
+    <developer>
+      <id>jcsirot</id>
+      <name>Jean-Christophe Sirot</name>
+      <email>jcsirot@gmail.com</email>
+      <roles>
+        <role>owner</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+
+  <modules>
+    <module>cnab-core</module>
+    <module>cnab-runtime</module>
+    <module>cnab-driver-docker</module>
+    <module>cnab-client</module>
+  </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-versions</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>1.8.0</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven-javadoc-plugin.version}</version>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+          <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven-jar-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${maven-source-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven-javadoc-plugin.version}</version>
+          <configuration>
+            <quiet>true</quiet>
+            <notimestamp>true</notimestamp>
+            <encoding>UTF-8</encoding>
+            <docencoding>UTF-8</docencoding>
+            <charset>UTF-8</charset>
+            <additionalOptions>
+              <additionalOption>-XDignore.symbol.file</additionalOption>
+              <additionalOption>-Xdoclint:-html</additionalOption>
+            </additionalOptions>
+            <linksource>true</linksource>
+            <source>8</source>
+          </configuration>
+          <executions>
+            <execution>
+              <id>attach-docs</id>
+              <phase>post-integration-test</phase>
+              <goals><goal>jar</goal></goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>3.1.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.6</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${maven-enforcer-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- modules -->
+      <dependency>
+        <groupId>org.chelonix.jcnab</groupId>
+        <artifactId>cnab-core</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.chelonix.jcnab</groupId>
+        <artifactId>cnab-runtime</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.chelonix.jcnab</groupId>
+        <artifactId>cnab-driver-docker</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+
+      <!-- JSON-P API -->
+      <dependency>
+        <groupId>jakarta.json</groupId>
+        <artifactId>jakarta.json-api</artifactId>
+        <version>${jakarta.json-api.version}</version>
+      </dependency>
+      <!-- JSON-B API -->
+      <dependency>
+        <groupId>jakarta.json.bind</groupId>
+        <artifactId>jakarta.json.bind-api</artifactId>
+        <version>${jakarta.json.bind-api.version}</version>
+      </dependency>
+      <!--
+      <dependency>
+        <groupId>org.apache.johnzon</groupId>
+        <artifactId>johnzon-core</artifactId>
+        <version>${johnzon.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.johnzon</groupId>
+        <artifactId>johnzon-jsonb</artifactId>
+        <version>${johnzon.version}</version>
+      </dependency>
+      -->
+      <!-- Yasson (JSON-B implementation) -->
+      <dependency>
+        <groupId>org.eclipse</groupId>
+        <artifactId>yasson</artifactId>
+        <version>1.0.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.leadpony.joy</groupId>
+        <artifactId>joy</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.leadpony.justify</groupId>
+        <artifactId>justify</artifactId>
+        <version>${justify.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-client</artifactId>
+        <version>${docker-client.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>de.huxhorn.sulky</groupId>
+        <artifactId>de.huxhorn.sulky.ulid</artifactId>
+        <version>${ulid.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-compress</artifactId>
+        <version>${common-compress.version}</version>
+      </dependency>
+
+
+      <!-- test dependencies -->
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <properties>
+    <!-- Override this with -Dtest.include="**/SomeTest.java" on the CLI -->
+    <truth.version>0.44</truth.version>
+    <animal.sniffer.version>1.17</animal.sniffer.version>
+    <maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
+    <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
+    <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+    <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
+    <jakarta.json-api.version>1.1.5</jakarta.json-api.version>
+    <jakarta.json.bind-api.version>1.0.1</jakarta.json.bind-api.version>
+    <johnzon.version>1.1.12</johnzon.version>
+    <justify.version>1.0.0</justify.version>
+    <docker-client.version>8.16.0</docker-client.version>
+    <ulid.version>8.2.0</ulid.version>
+    <guava.version>28.1-jre</guava.version>
+    <common-compress.version>1.19</common-compress.version>
+    <junit.version>5.5.1</junit.version>
+    <assertj.version>3.11.1</assertj.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+</project>
