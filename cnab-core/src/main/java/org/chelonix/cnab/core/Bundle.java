@@ -1,13 +1,7 @@
 
 package org.chelonix.cnab.core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 import javax.json.bind.annotation.JsonbProperty;
 
 import org.leadpony.justify.api.JsonSchema;
@@ -26,14 +20,14 @@ public class Bundle {
      * 
      */
     @JsonbProperty("actions")
-    private Map<String, Action> actions = new HashMap<>();
+    private Actions actions = new Actions();
 
     /**
      * Credential to be injected into the invocation image
      * 
      */
     @JsonbProperty("credentials")
-    private Map<String, Credential> credentials;
+    private Credentials credentials = new Credentials();
 
     @JsonbProperty("custom")
     private Map<String, Object> custom;
@@ -97,7 +91,7 @@ public class Bundle {
      * 
      */
     @JsonbProperty("outputs")
-    private Map<String, Output> outputs;
+    private Outputs outputs;
 
     /**
      * Parameters that can be injected into the invocation image
@@ -140,7 +134,7 @@ public class Bundle {
      * Custom actions that can be triggered on this bundle, action name should be namespaced and use reverse DNS notation
      * 
      */
-    public Map<String, Action> getActions() {
+    public Actions getActions() {
         return actions;
     }
 
@@ -148,12 +142,12 @@ public class Bundle {
      * Custom actions that can be triggered on this bundle, action name should be namespaced and use reverse DNS notation
      * 
      */
-    public void setActions(Map<String, Action> actions) {
+    public void setActions(Actions actions) {
         this.actions = actions;
     }
 
-    public Bundle withActions(Map<String, Action> actions) {
-        this.actions = actions;
+    public Bundle withAction(String name, Action action) {
+        actions.add(action);
         return this;
     }
 
@@ -161,7 +155,7 @@ public class Bundle {
      * Credential to be injected into the invocation image
      * 
      */
-    public Map<String, Credential> getCredentials() {
+    public Credentials getCredentials() {
         return credentials;
     }
 
@@ -169,13 +163,8 @@ public class Bundle {
      * Credential to be injected into the invocation image
      * 
      */
-    public void setCredentials(Map<String, Credential> credentials) {
+    public void setCredentials(Credentials credentials) {
         this.credentials = credentials;
-    }
-
-    public Bundle withCredentials(Map<String, Credential> credentials) {
-        this.credentials = credentials;
-        return this;
     }
 
     public Map<String, Object> getCustom() {
@@ -266,6 +255,11 @@ public class Bundle {
 
     public Bundle withInvocationImages(List<InvocationImage> invocationImages) {
         this.invocationImages = invocationImages;
+        return this;
+    }
+
+    public Bundle withInvocationImages(InvocationImage... invocationImages) {
+        this.invocationImages = new ArrayList<>(Arrays.asList(invocationImages));
         return this;
     }
 
@@ -362,7 +356,7 @@ public class Bundle {
      * Values that are produced by executing the invocation image
      * 
      */
-    public Map<String, Output> getOutputs() {
+    public Outputs getOutputs() {
         return outputs;
     }
 
@@ -370,16 +364,8 @@ public class Bundle {
      * Values that are produced by executing the invocation image
      * 
      */
-    public void setOutputs(Map<String, Output> outputs) {
+    public void setOutputs(Outputs outputs) {
         this.outputs = outputs;
-    }
-
-    public Bundle withOutput(String name, Output output) {
-        if (this.outputs == null) {
-            this.outputs = new HashMap<>();
-        }
-        this.outputs.put(name, output);
-        return this;
     }
 
     /**

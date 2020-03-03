@@ -167,6 +167,12 @@
         <artifactId>jakarta.json.bind-api</artifactId>
         <version>${jakarta.json.bind-api.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>com.stratumn</groupId>
+        <artifactId>canonicaljson</artifactId>
+        <version>${canonicaljson.version}</version>
+      </dependency>
       <!--
       <dependency>
         <groupId>org.apache.johnzon</groupId>
@@ -250,6 +256,7 @@
     <jakarta.json.bind-api.version>1.0.1</jakarta.json.bind-api.version>
     <johnzon.version>1.1.12</johnzon.version>
     <justify.version>1.0.0</justify.version>
+    <canonicaljson.version>0.0.2</canonicaljson.version>
     <docker-client.version>8.16.0</docker-client.version>
     <ulid.version>8.2.0</ulid.version>
     <guava.version>28.1-jre</guava.version>

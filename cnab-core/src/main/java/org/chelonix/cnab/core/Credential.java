@@ -4,12 +4,16 @@ package org.chelonix.cnab.core;
 import java.util.Objects;
 import java.util.StringJoiner;
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 
 /**
  * Credential defines a particular credential, and where it should be placed in the invocation image
  * 
  */
-public class Credential {
+public class Credential implements MapOf.Named {
+
+    @JsonbTransient
+    private String name;
 
     /**
      * A user-friendly description of this credential
@@ -34,6 +38,16 @@ public class Credential {
      */
     @JsonbProperty("required")
     private boolean required = false;
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getDescription() {
         return description;
@@ -69,12 +83,13 @@ public class Credential {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Credential.class.getSimpleName() + "[", "]")
-                .add("description='" + description + "'")
-                .add("env='" + env + "'")
-                .add("path='" + path + "'")
-                .add("required=" + required)
-                .toString();
+        return "Credential{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", env='" + env + '\'' +
+                ", path='" + path + '\'' +
+                ", required=" + required +
+                '}';
     }
 
     @Override
@@ -83,6 +98,7 @@ public class Credential {
         if (o == null || getClass() != o.getClass()) return false;
         Credential that = (Credential) o;
         return required == that.required &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(env, that.env) &&
                 Objects.equals(path, that.path);
@@ -90,6 +106,6 @@ public class Credential {
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, env, path, required);
+        return Objects.hash(name, description, env, path, required);
     }
 }

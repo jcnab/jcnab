@@ -68,7 +68,8 @@ public class ClientTest {
         driver.setContainerOut(output);
         driver.removeContainerOnExit(false);
         Install installAction = new Install(claim, driver);
-        installAction.run();
+        claim = installAction.run();
+        System.out.println(claim.getOutputs());
         // Then
         String actual = new String(output.toByteArray(), "UTF-8");
         String expected = Resources.toString(getClass().getResource("env-var/output.txt"), StandardCharsets.UTF_8);

@@ -1,6 +1,8 @@
 
 package org.chelonix.cnab.core;
 
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -9,35 +11,44 @@ import java.util.StringJoiner;
  * A value that is produced by running an invocation image
  * 
  */
-public class Output {
+public class Output implements MapOf.Named {
+
+    @JsonbTransient
+    private String name;
 
     /**
-     * An optional exhaustive list of actions handling this parameter
+     * Restricts this output to a given list of actions. If empty or missing, applies to all actions
      *
      */
+    @JsonbProperty("applyTo")
     private List<String> applyTo;
 
     /**
-     * The name of a definition that describes the schema structure of this parameter
+     * TThe name of a definition schema that is used to validate the output content
      *
      */
+    @JsonbProperty("definition")
     private String definition;
 
+    @JsonbProperty("description")
     private String description;
 
     /**
-     * The path inside of the invocation image where output will be written
+     * The fully qualified path to a file that will be created
      *
      */
+    @JsonbProperty("path")
     private String path;
 
-    /**
-     * Indicates whether this parameter must be supplied. By default, parameters are optional
-     *
-     */
-    private boolean required;
-
     public Output() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<String> getApplyTo() {
@@ -72,23 +83,15 @@ public class Output {
         this.path = path;
     }
 
-    public boolean isRequired() {
-        return required;
-    }
-
-    public void setRequired(boolean required) {
-        this.required = required;
-    }
-
     @Override
     public String toString() {
-        return new StringJoiner(", ", Output.class.getSimpleName() + "[", "]")
-                .add("applyTo=" + applyTo)
-                .add("definition='" + definition + "'")
-                .add("description='" + description + "'")
-                .add("path='" + path + "'")
-                .add("required=" + required)
-                .toString();
+        return "Output{" +
+                "name='" + name + '\'' +
+                ", applyTo=" + applyTo +
+                ", definition='" + definition + '\'' +
+                ", description='" + description + '\'' +
+                ", path='" + path + '\'' +
+                '}';
     }
 
     @Override
@@ -96,7 +99,7 @@ public class Output {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Output output = (Output) o;
-        return required == output.required &&
+        return Objects.equals(name, output.name) &&
                 Objects.equals(applyTo, output.applyTo) &&
                 Objects.equals(definition, output.definition) &&
                 Objects.equals(description, output.description) &&
@@ -105,6 +108,6 @@ public class Output {
 
     @Override
     public int hashCode() {
-        return Objects.hash(applyTo, definition, description, path, required);
+        return Objects.hash(name, applyTo, definition, description, path);
     }
 }

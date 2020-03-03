@@ -5,12 +5,16 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 
 /**
  * Custom actions that can be triggered on this bundle, action name should be namespaced and use reverse DNS notation
  * 
  */
-public class Action {
+public class Action implements MapOf.Named {
+
+    @JsonbTransient
+    private String name;
 
     /**
      * A description of the purpose of this action
@@ -34,10 +38,12 @@ public class Action {
     public Action() {
     }
 
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", Action.class.getSimpleName() + "[", "]")
-                .toString();
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -65,17 +71,28 @@ public class Action {
     }
 
     @Override
+    public String toString() {
+        return "Action{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", modifies=" + modifies +
+                ", stateless=" + stateless +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Action action = (Action) o;
         return modifies == action.modifies &&
                 stateless == action.stateless &&
+                Objects.equals(name, action.name) &&
                 Objects.equals(description, action.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, modifies, stateless);
+        return Objects.hash(name, description, modifies, stateless);
     }
 }

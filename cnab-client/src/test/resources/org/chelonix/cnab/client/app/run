@@ -8,6 +8,7 @@ case $action in
     echo "Install action"
     echo "env parameter=$ENV_PARAMETER"
     echo "file parameter=$(cat /etc/cnab/parameters/param)"
+    mkdir -p /cnab/app/outputs && echo $HOSTNAME > /cnab/app/outputs/hostname
     ;;
     uninstall)
     echo "uninstall action"

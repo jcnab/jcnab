@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mkdir -p /cnab/app/outputs
+
+echo -n "OK output 1" > /cnab/app/outputs/1.txt
+echo -n "OK output 2" > /cnab/app/outputs/2.txt

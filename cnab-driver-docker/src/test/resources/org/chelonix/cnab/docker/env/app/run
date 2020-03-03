@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo $ENV_1
+echo $ENV_2

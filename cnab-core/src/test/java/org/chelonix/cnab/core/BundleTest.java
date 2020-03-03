@@ -14,8 +14,8 @@ public class BundleTest {
             System.out.printf("%s -> %s\n", e.getKey(), e.getValue());
         }
 
-        for (Map.Entry<String, Output> e: bundle.getOutputs().entrySet()) {
-            System.out.printf("%s -> %s\n", e.getKey(), e.getValue());
+        for (Output out: bundle.getOutputs()) {
+            System.out.printf("%s -> %s\n", out.getName(), out);
         }
     }
 }

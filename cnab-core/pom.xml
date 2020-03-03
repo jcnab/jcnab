@@ -37,6 +37,10 @@
       <groupId>de.huxhorn.sulky</groupId>
       <artifactId>de.huxhorn.sulky.ulid</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.stratumn</groupId>
+      <artifactId>canonicaljson</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>

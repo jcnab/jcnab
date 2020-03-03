@@ -59,6 +59,10 @@ public class InvocationImage {
     public InvocationImage() {
     }
 
+    public InvocationImage(String image) {
+        this.image = image;
+    }
+
     /**
      * 
      * @param contentDigest

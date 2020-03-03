@@ -36,6 +36,15 @@
       }
     }
   },
+  "outputs": {
+    "hostName": {
+      "applyTo": [
+        "install"
+      ],
+      "definition": "string",
+      "path": "/cnab/app/outputs/hostname"
+    }
+  },
   "schemaVersion": "v1.0.0",
   "version": "0.1.0"
 }

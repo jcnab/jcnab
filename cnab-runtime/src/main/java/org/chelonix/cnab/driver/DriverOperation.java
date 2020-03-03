@@ -1,35 +1,20 @@
 package org.chelonix.cnab.driver;
 
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.chelonix.cnab.action.Action;
-import org.chelonix.cnab.core.Bundle;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class DriverOperation {
 
-    private Bundle bundle;
-    private String action;
-    private String claim;
+    private static final Path OUTPUT_PREFIX = Paths.get("/", "cnab", "app", "outputs");
+
     private String invocationImage;
     private Map<Path, String> files = new HashMap<>();
     private Map<String, String> environment = new HashMap<>();
+    private Map<String, Path> outputs = new HashMap<>();
 
-    public static Builder newBuilder(Bundle bundle, String action, String claim) {
-        return new Builder(bundle, action, claim);
-    }
-
-    public Bundle getBundle() {
-        return bundle;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public String getClaim() {
-        return claim;
+    public static Builder newBuilder() {
+        return new Builder();
     }
 
     public String getInvocationImage() {
@@ -44,18 +29,19 @@ public class DriverOperation {
         return environment;
     }
 
+    public Map<String, Path> getOutputs() {
+        return outputs;
+    }
+
     public static class Builder {
 
         private DriverOperation operation;
 
-        Builder(Bundle bundle, String action, String claim) {
+        Builder() {
             operation = new DriverOperation();
-            operation.bundle = bundle;
-            operation.action = action;
-            operation.claim = claim;
         }
 
-        public Builder withValue(String name, String value) {
+        public Builder withEnv(String name, String value) {
             operation.environment.put(name, value);
             return this;
         }
@@ -70,17 +56,12 @@ public class DriverOperation {
             return this;
         }
 
-        private void validate() throws InvalidOperationException {
-            if (!operation.getBundle().getActions().keySet().contains(operation.getAction()) &&
-                    !Action.isBuiltIn(operation.getAction()))
-            {
-                throw new InvalidOperationException(String.format("Action %s is not defined in the bundle",
-                        operation.getAction()));
-            }
+        public Builder withOutput(String name, Path path) {
+            operation.outputs.put(name, path);
+            return this;
         }
 
-        public DriverOperation build() throws InvalidOperationException {
-            validate();
+        public DriverOperation build() {
             return operation;
         }
     }

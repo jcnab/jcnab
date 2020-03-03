@@ -16,6 +16,10 @@ public class InvalidOperationException extends DriverException {
         super(message);
     }
 
+    public InvalidOperationException(String message, Object... args) {
+        super(String.format(message, args));
+    }
+
     public InvalidOperationException(String message, Throwable cause) {
         super(message, cause);
     }

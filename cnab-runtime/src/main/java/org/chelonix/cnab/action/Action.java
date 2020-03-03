@@ -1,12 +1,14 @@
 package org.chelonix.cnab.action;
 
+import org.chelonix.cnab.core.Claim;
+
 public interface Action {
 
-    public static boolean isBuiltIn(String action) {
+    static boolean isBuiltIn(String action) {
         return action.equals("install") || action.equals("upgrade") || action.equals("uninstall");
     }
 
-    void run();
+    Claim run();
 
     String getName();
 }

@@ -10,7 +10,7 @@ public class ActionException extends Exception {
         super(message, cause);
     }
 
-    public ActionException(String message, String... params) {
+    public ActionException(String message, Object... params) {
         super(String.format(message, params));
     }
 

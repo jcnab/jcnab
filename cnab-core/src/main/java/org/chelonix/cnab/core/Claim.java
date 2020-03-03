@@ -51,6 +51,9 @@ public class Claim {
     @JsonbProperty("parameters")
     private Map<String, String> parameters = new HashMap<>();
 
+    @JsonbProperty("outputs")
+    private Map<String, String> outputs;
+
     /**
      * the revision ID (ideally a ULID)
      */
@@ -121,6 +124,22 @@ public class Claim {
         return this;
     }
 
+    public Map<String, String> getOutputs() {
+        return outputs;
+    }
+
+    public void setOutputs(Map<String, String> outputs) {
+        this.outputs = outputs;
+    }
+
+    public Claim withOutput(String key, String value) {
+        if (outputs == null) {
+            outputs = new HashMap<>();
+        }
+        outputs.put(key, value);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Claim{" +
@@ -130,6 +149,7 @@ public class Claim {
                 ", name='" + name + '\'' +
                 ", result=" + result +
                 ", parameters=" + parameters +
+                ", outputs=" + outputs +
                 ", revision='" + revision + '\'' +
                 '}';
     }
@@ -145,11 +165,12 @@ public class Claim {
                 Objects.equals(name, claim.name) &&
                 Objects.equals(result, claim.result) &&
                 Objects.equals(parameters, claim.parameters) &&
+                Objects.equals(outputs, claim.outputs) &&
                 Objects.equals(revision, claim.revision);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bundle, created, modified, name, result, parameters, revision);
+        return Objects.hash(bundle, created, modified, name, result, parameters, outputs, revision);
     }
 }
