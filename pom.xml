@@ -142,17 +142,17 @@
       <dependency>
         <groupId>org.chelonix.jcnab</groupId>
         <artifactId>cnab-core</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.chelonix.jcnab</groupId>
         <artifactId>cnab-runtime</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.chelonix.jcnab</groupId>
         <artifactId>cnab-driver-docker</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
 
       <!-- JSON-P API -->

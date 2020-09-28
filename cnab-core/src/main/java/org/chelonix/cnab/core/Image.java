@@ -81,14 +81,14 @@ public class Image {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Image image1 = (Image) o;
-        return size == image1.size &&
-                Objects.equals(contentDigest, image1.contentDigest) &&
-                Objects.equals(description, image1.description) &&
-                image.equals(image1.image) &&
-                imageType == image1.imageType &&
-                Objects.equals(labels, image1.labels) &&
-                Objects.equals(mediaType, image1.mediaType);
+        Image otherImage = (Image) o;
+        return size == otherImage.size &&
+                Objects.equals(contentDigest, otherImage.contentDigest) &&
+                Objects.equals(description, otherImage.description) &&
+                image.equals(otherImage.image) &&
+                imageType == otherImage.imageType &&
+                Objects.equals(labels, otherImage.labels) &&
+                Objects.equals(mediaType, otherImage.mediaType);
     }
 
     @Override
