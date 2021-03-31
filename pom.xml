@@ -259,7 +259,7 @@
     <canonicaljson.version>0.0.2</canonicaljson.version>
     <docker-client.version>8.16.0</docker-client.version>
     <ulid.version>8.2.0</ulid.version>
-    <guava.version>28.1-jre</guava.version>
+    <guava.version>29.0-jre</guava.version>
     <common-compress.version>1.19</common-compress.version>
     <junit.version>5.5.1</junit.version>
     <assertj.version>3.11.1</assertj.version>
