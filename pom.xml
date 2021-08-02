@@ -260,7 +260,7 @@
     <docker-client.version>8.16.0</docker-client.version>
     <ulid.version>8.2.0</ulid.version>
     <guava.version>28.1-jre</guava.version>
-    <common-compress.version>1.19</common-compress.version>
+    <common-compress.version>1.21</common-compress.version>
     <junit.version>5.5.1</junit.version>
     <assertj.version>3.11.1</assertj.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
